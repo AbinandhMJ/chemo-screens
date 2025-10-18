@@ -444,16 +444,30 @@
         input[type="text"] {
     width: 45px;
 }
+  .editable-table td[contenteditable="true"],
+  div[contenteditable="true"] {
+    cursor: text;
+    transition: background-color 0.2s ease;
+  }
+  .editable-table td[contenteditable="true"]:hover,
+  div[contenteditable="true"]:hover {
+    background-color: #f0f8ff;
+  }
+  .editable-table td[contenteditable="true"]:focus,
+  div[contenteditable="true"]:focus {
+    outline: 2px solid #007bff;
+    background-color: #e9f7fe;
+  }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="header">
                 <span>Chemotherapy Administration & Progress Tracking</span>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <span class="status-badge status-inprogress">Cycle 1 Day 1 - In Progress</span>
-                    <span style="font-size: 11px;">Patient: John Doe | MRN: 12345 | Protocol: FOLFOX</span>
-                </div>
+<div style="display: flex; gap: 10px; align-items: center;">
+  <span class="status-badge status-inprogress" contenteditable="true">Cycle 1 Day 1 - In Progress</span>
+  <span style="font-size: 11px;" contenteditable="true">Patient: John Doe | MRN: 12345 | Protocol: FOLFOX</span>
+</div>
             </div>
             
             <div class="tabs">
@@ -470,7 +484,8 @@
                         <h3 style="margin: 0;">Daily Administration Progress</h3>
                         <div class="date-navigation">
                             <button class="nav-btn" onclick="changeDate(-1)">← Prev Day</button>
-                            <span class="current-date">October 16, 2025 - Cycle 1, Day 1</span>
+<span class="current-date" id="current-date"></span>
+</span>
                             <button class="nav-btn" onclick="changeDate(1)">Next Day →</button>
                         </div>
                     </div>
@@ -670,253 +685,281 @@
             </div>
             
             <!-- Side Effects Tab -->
-            <div id="side-effects" class="tab-content">
-                <div class="side-effects-section">
-                    <h4 style="margin: 0 0 10px 0; color: #856404;">Toxicity Assessment & Management</h4>
-                    <div class="side-effects-grid">
-                        <div class="side-effect-item">
-                            <label style="min-width: 100px;">Nausea/Vomiting:</label>
-                            <select class="severity-select">
-                                <option value="0">Grade 0</option>
-                                <option value="1">Grade 1</option>
-                                <option value="2" selected>Grade 2</option>
-                                <option value="3">Grade 3</option>
-                                <option value="4">Grade 4</option>
-                            </select>
-                        </div>
-                        <div class="side-effect-item">
-                            <label style="min-width: 100px;">Diarrhea:</label>
-                            <select class="severity-select">
-                                <option value="0" selected>Grade 0</option>
-                                <option value="1">Grade 1</option>
-                                <option value="2">Grade 2</option>
-                                <option value="3">Grade 3</option>
-                                <option value="4">Grade 4</option>
-                            </select>
-                        </div>
-                        <div class="side-effect-item">
-                            <label style="min-width: 100px;">Neuropathy:</label>
-                            <select class="severity-select">
-                                <option value="0" selected>Grade 0</option>
-                                <option value="1">Grade 1</option>
-                                <option value="2">Grade 2</option>
-                                <option value="3">Grade 3</option>
-                                <option value="4">Grade 4</option>
-                            </select>
-                        </div>
-                        <div class="side-effect-item">
-                            <label style="min-width: 100px;">Fatigue:</label>
-                            <select class="severity-select">
-                                <option value="0">Grade 0</option>
-                                <option value="1" selected>Grade 1</option>
-                                <option value="2">Grade 2</option>
-                                <option value="3">Grade 3</option>
-                                <option value="4">Grade 4</option>
-                            </select>
-                        </div>
-                        <div class="side-effect-item">
-                            <label style="min-width: 100px;">Mucositis:</label>
-                            <select class="severity-select">
-                                <option value="0" selected>Grade 0</option>
-                                <option value="1">Grade 1</option>
-                                <option value="2">Grade 2</option>
-                                <option value="3">Grade 3</option>
-                                <option value="4">Grade 4</option>
-                            </select>
-                        </div>
-                        <div class="side-effect-item">
-                            <label style="min-width: 100px;">Skin Changes:</label>
-                            <select class="severity-select">
-                                <option value="0" selected>Grade 0</option>
-                                <option value="1">Grade 1</option>
-                                <option value="2">Grade 2</option>
-                                <option value="3">Grade 3</option>
-                                <option value="4">Grade 4</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="dose-modification" style="margin-top: 15px;">
-                        <h5 style="margin: 0 0 10px 0; color: #721c24;">Dose Modifications</h5>
-                        <div style="display: flex; gap: 15px; align-items: center;">
-                            <label>
-                                <input type="checkbox"> Dose Reduction Required
-                            </label>
-                            <label>
-                                <input type="checkbox"> Treatment Delay
-                            </label>
-                            <label>
-                                <input type="checkbox"> Drug Discontinuation
-                            </label>
-                        </div>
-                        <textarea class="modification-reason" rows="3" placeholder="Reason for modification and clinical decision...">Grade 2 nausea requiring additional antiemetics. Consider dose reduction for next cycle if persists.</textarea>
-                    </div>
-                </div>
-            </div>
+           <div id="side-effects" class="tab-content">
+  <div class="side-effects-section">
+    <h4 style="margin: 0 0 10px 0; color: #856404;" contenteditable="true">
+      Toxicity Assessment & Management
+    </h4>
+
+    <div class="side-effects-grid">
+      <div class="side-effect-item">
+        <label style="min-width: 100px;" contenteditable="true">Nausea/Vomiting:</label>
+        <select class="severity-select">
+          <option value="0">Grade 0</option>
+          <option value="1">Grade 1</option>
+          <option value="2" selected>Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+        </select>
+      </div>
+
+      <div class="side-effect-item">
+        <label style="min-width: 100px;" contenteditable="true">Diarrhea:</label>
+        <select class="severity-select">
+          <option value="0" selected>Grade 0</option>
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+        </select>
+      </div>
+
+      <div class="side-effect-item">
+        <label style="min-width: 100px;" contenteditable="true">Neuropathy:</label>
+        <select class="severity-select">
+          <option value="0" selected>Grade 0</option>
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+        </select>
+      </div>
+
+      <div class="side-effect-item">
+        <label style="min-width: 100px;" contenteditable="true">Fatigue:</label>
+        <select class="severity-select">
+          <option value="0">Grade 0</option>
+          <option value="1" selected>Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+        </select>
+      </div>
+
+      <div class="side-effect-item">
+        <label style="min-width: 100px;" contenteditable="true">Mucositis:</label>
+        <select class="severity-select">
+          <option value="0" selected>Grade 0</option>
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+        </select>
+      </div>
+
+      <div class="side-effect-item">
+        <label style="min-width: 100px;" contenteditable="true">Skin Changes:</label>
+        <select class="severity-select">
+          <option value="0" selected>Grade 0</option>
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="dose-modification" style="margin-top: 15px;">
+      <h5 style="margin: 0 0 10px 0; color: #721c24;" contenteditable="true">
+        Dose Modifications
+      </h5>
+
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <label contenteditable="true">
+          <input type="checkbox"> Dose Reduction Required
+        </label>
+        <label contenteditable="true">
+          <input type="checkbox"> Treatment Delay
+        </label>
+        <label contenteditable="true">
+          <input type="checkbox"> Drug Discontinuation
+        </label>
+      </div>
+
+      <textarea
+        class="modification-reason"
+        rows="3"
+        placeholder="Reason for modification and clinical decision..."
+        style="width: 100%; margin-top: 10px;"
+      >Grade 2 nausea requiring additional antiemetics. Consider dose reduction for next cycle if persists.</textarea>
+    </div>
+  </div>
+</div>
+
             
             <!-- Progress Notes Tab -->
             <div id="progress-notes" class="tab-content">
-                <div class="progress-timeline">
-                    <h4 style="margin: 0 0 15px 0;">Treatment Timeline</h4>
-                    <div class="timeline-item">
-                        <div class="timeline-time">08:00</div>
-                        <div class="timeline-event">Pre-medication started (dexamethasone 12mg PO)</div>
-                        <div class="timeline-status status-completed">Completed</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">09:00</div>
-                        <div class="timeline-event">IV access established, ondansetron 8mg administered</div>
-                        <div class="timeline-status status-completed">Completed</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">09:30</div>
-                        <div class="timeline-event">Pre-treatment labs reviewed - all within acceptable range</div>
-                        <div class="timeline-status status-completed">Completed</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">10:00</div>
-                        <div class="timeline-event">Oxaliplatin and Leucovorin infusion started</div>
-                        <div class="timeline-status status-inprogress">In Progress</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">10:30</div>
-                        <div class="timeline-event">Patient reports mild nausea, given additional ondansetron</div>
-                        <div class="timeline-status status-completed">Completed</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">12:30</div>
-                        <div class="timeline-event">5-FU bolus administration (scheduled)</div>
-                        <div class="timeline-status status-planned">Planned</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">13:00</div>
-                        <div class="timeline-event">5-FU continuous infusion setup (scheduled)</div>
-                        <div class="timeline-status status-planned">Planned</div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-time">15:00</div>
-                        <div class="timeline-event">Patient education on home pump management</div>
-                        <div class="timeline-status status-planned">Planned</div>
-                    </div>
-                </div>
-                
-                <div class="protocol-section">
-                    <h4 style="margin: 0 0 15px 0;">Daily Progress Notes</h4>
-                    <div style="margin-bottom: 15px;">
-                        <label style="font-weight: bold; display: block; margin-bottom: 5px;">Today's Assessment:</label>
-                        <textarea style="width: 100%; height: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 11px;" placeholder="Document patient's condition, tolerance, and any issues...">Patient arrived in good spirits. Vital signs stable. Pre-treatment labs acceptable for chemotherapy administration. IV access established without difficulty. Tolerated pre-medications well. Oxaliplatin infusion started on schedule. Patient reports mild nausea, managed with additional antiemetics. No signs of hypersensitivity reaction. Continuing with protocol as planned.</textarea>
-                    </div>
-                    
-                    <div style="margin-bottom: 15px;">
-                        <label style="font-weight: bold; display: block; margin-bottom: 5px;">Plan for Next Visit/Cycle:</label>
-                        <textarea style="width: 100%; height: 60px; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 11px;" placeholder="Document plans, dose modifications, supportive care changes...">Continue FOLFOX protocol. Monitor for cumulative neuropathy. Consider prophylactic antiemetics if nausea persists. Next cycle scheduled for November 6, 2025. Pre-treatment labs to be drawn November 5.</textarea>
-                    </div>
-                    
-                    <div style="display: flex; gap: 15px;">
-                        <div style="flex: 1;">
-                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Provider:</label>
-                            <input type="text" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" value="Dr. Sarah Johnson, MD">
-                        </div>
-                        <div style="flex: 1;">
-                            <label style="font-weight: bold; display: block; margin-bottom: 5px;">Date/Time:</label>
-                            <input type="datetime-local" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" value="2025-10-16T10:30">
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="progress-timeline">
+    <h4 style="margin: 0 0 15px 0;">Treatment Timeline</h4>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">08:00</div>
+      <div class="timeline-event" contenteditable="true">Pre-medication started (dexamethasone 12mg PO)</div>
+      <div class="timeline-status status-completed" contenteditable="true">Completed</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">09:00</div>
+      <div class="timeline-event" contenteditable="true">IV access established, ondansetron 8mg administered</div>
+      <div class="timeline-status status-completed" contenteditable="true">Completed</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">09:30</div>
+      <div class="timeline-event" contenteditable="true">Pre-treatment labs reviewed - all within acceptable range</div>
+      <div class="timeline-status status-completed" contenteditable="true">Completed</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">10:00</div>
+      <div class="timeline-event" contenteditable="true">Oxaliplatin and Leucovorin infusion started</div>
+      <div class="timeline-status status-inprogress" contenteditable="true">In Progress</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">10:30</div>
+      <div class="timeline-event" contenteditable="true">Patient reports mild nausea, given additional ondansetron</div>
+      <div class="timeline-status status-completed" contenteditable="true">Completed</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">12:30</div>
+      <div class="timeline-event" contenteditable="true">5-FU bolus administration (scheduled)</div>
+      <div class="timeline-status status-planned" contenteditable="true">Planned</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">13:00</div>
+      <div class="timeline-event" contenteditable="true">5-FU continuous infusion setup (scheduled)</div>
+      <div class="timeline-status status-planned" contenteditable="true">Planned</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time" contenteditable="true">15:00</div>
+      <div class="timeline-event" contenteditable="true">Patient education on home pump management</div>
+      <div class="timeline-status status-planned" contenteditable="true">Planned</div>
+    </div>
+  </div>
+
+  <div class="protocol-section">
+    <h4 style="margin: 0 0 15px 0;">Daily Progress Notes</h4>
+
+    <div style="margin-bottom: 15px;">
+      <label style="font-weight: bold; display: block; margin-bottom: 5px;">Today's Assessment:</label>
+      <textarea contenteditable="true" style="width: 100%; height: 80px; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 11px;"
+        placeholder="Document patient's condition, tolerance, and any issues...">Patient arrived in good spirits. Vital signs stable. Pre-treatment labs acceptable for chemotherapy administration. IV access established without difficulty. Tolerated pre-medications well. Oxaliplatin infusion started on schedule. Patient reports mild nausea, managed with additional antiemetics. No signs of hypersensitivity reaction. Continuing with protocol as planned.</textarea>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label style="font-weight: bold; display: block; margin-bottom: 5px;">Plan for Next Visit/Cycle:</label>
+      <textarea contenteditable="true" style="width: 100%; height: 60px; padding: 8px; border: 1px solid #ccc; border-radius: 3px; font-size: 11px;"
+        placeholder="Document plans, dose modifications, supportive care changes...">Continue FOLFOX protocol. Monitor for cumulative neuropathy. Consider prophylactic antiemetics if nausea persists. Next cycle scheduled for November 6, 2025. Pre-treatment labs to be drawn November 5.</textarea>
+    </div>
+
+    <div style="display: flex; gap: 15px;">
+      <div style="flex: 1;">
+        <label style="font-weight: bold; display: block; margin-bottom: 5px;">Provider:</label>
+        <input type="text" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" value="Dr. Sarah Johnson, MD">
+      </div>
+      <div style="flex: 1;">
+        <label style="font-weight: bold; display: block; margin-bottom: 5px;">Date/Time:</label>
+        <input type="datetime-local" style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 3px;" value="2025-10-16T10:30">
+      </div>
+    </div>
+  </div>
+</div>
             
             <!-- Cycle Overview Tab -->
-            <div id="cycle-overview" class="tab-content">
-                <div class="protocol-section">
-                    <h4 style="margin: 0 0 15px 0;">Cycle 1 Overview (Oct 16 - Nov 6, 2025)</h4>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;">
-                        <div style="background: #e8f5e8; padding: 12px; border-radius: 5px;">
-                            <h5 style="margin: 0 0 10px 0; color: #155724;">Treatment Days</h5>
-                            <div style="font-size: 11px;">
-                                <div><strong>Day 1 (Oct 16):</strong> <span class="status-badge status-inprogress">In Progress</span></div>
-                                <div><strong>Day 2 (Oct 17):</strong> <span class="status-badge status-planned">Planned</span></div>
-                                <div><strong>Day 3 (Oct 18):</strong> <span class="status-badge status-planned">Planned</span></div>
-                            </div>
-                        </div>
-                        
-                        <div style="background: #fff3cd; padding: 12px; border-radius: 5px;">
-                            <h5 style="margin: 0 0 10px 0; color: #856404;">Key Milestones</h5>
-                            <div style="font-size: 11px;">
-                                <div>• Pump disconnection: Oct 18</div>
-                                <div>• Post-treatment labs: Oct 23</div>
-                                <div>• Toxicity assessment: Oct 30</div>
-                                <div>• Cycle 2 planning: Nov 2</div>
-                            </div>
-                        </div>
-                        
-                        <div style="background: #f8d7da; padding: 12px; border-radius: 5px;">
-                            <h5 style="margin: 0 0 10px 0; color: #721c24;">Monitoring Alerts</h5>
-                            <div style="font-size: 11px;">
-                                <div>• Watch for neuropathy symptoms</div>
-                                <div>• Monitor CBC on Day 10</div>
-                                <div>• Assess for delayed nausea</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <table class="medication-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Day</th>
-                                <th>Scheduled Treatments</th>
-                                <th>Status</th>
-                                <th>Key Events</th>
-                                <th>Provider Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background-color: #d1ecf1;">
-                                <td>Oct 16, 2025</td>
-                                <td>Day 1</td>
-                                <td>FOLFOX (Full protocol)</td>
-                                <td><span class="status-badge status-inprogress">In Progress</span></td>
-                                <td>Treatment initiation, pump start</td>
-                                <td>Mild nausea, well controlled</td>
-                            </tr>
-                            <tr>
-                                <td>Oct 17, 2025</td>
-                                <td>Day 2</td>
-                                <td>5-FU continuous (ongoing)</td>
-                                <td><span class="status-badge status-planned">Planned</span></td>
-                                <td>Pump monitoring, patient check</td>
-                                <td>Phone follow-up scheduled</td>
-                            </tr>
-                            <tr>
-                                <td>Oct 18, 2025</td>
-                                <td>Day 3</td>
-                                <td>Pump disconnection</td>
-                                <td><span class="status-badge status-planned">Planned</span></td>
-                                <td>End of infusion, pump return</td>
-                                <td>Toxicity assessment due</td>
-                            </tr>
-                            <tr>
-                                <td>Oct 23, 2025</td>
-                                <td>Day 8</td>
-                                <td>Labs only</td>
-                                <td><span class="status-badge status-planned">Planned</span></td>
-                                <td>CBC, CMP monitoring</td>
-                                <td>Call with results</td>
-                            </tr>
-                            <tr>
-                                <td>Nov 6, 2025</td>
-                                <td>Day 22 (Cycle 2)</td>
-                                <td>FOLFOX Cycle 2</td>
-                                <td><span class="status-badge status-planned">Planned</span></td>
-                                <td>Pre-treatment assessment</td>
-                                <td>Dose review needed</td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+          <div id="cycle-overview" class="tab-content">
+  <div class="protocol-section">
+    <h4 style="margin: 0 0 15px 0;">Cycle 1 Overview (Oct 16 - Nov 6, 2025)</h4>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;">
+      <div style="background: #e8f5e8; padding: 12px; border-radius: 5px;">
+        <h5 style="margin: 0 0 10px 0; color: #155724;">Treatment Days</h5>
+        <div style="font-size: 11px;">
+          <div contenteditable="true"><strong>Day 1 (Oct 16):</strong> <span class="status-badge status-inprogress">In Progress</span></div>
+          <div contenteditable="true"><strong>Day 2 (Oct 17):</strong> <span class="status-badge status-planned">Planned</span></div>
+          <div contenteditable="true"><strong>Day 3 (Oct 18):</strong> <span class="status-badge status-planned">Planned</span></div>
+        </div>
+      </div>
+
+      <div style="background: #fff3cd; padding: 12px; border-radius: 5px;">
+        <h5 style="margin: 0 0 10px 0; color: #856404;">Key Milestones</h5>
+        <div style="font-size: 11px;">
+          <div contenteditable="true">• Pump disconnection: Oct 18</div>
+          <div contenteditable="true">• Post-treatment labs: Oct 23</div>
+          <div contenteditable="true">• Toxicity assessment: Oct 30</div>
+          <div contenteditable="true">• Cycle 2 planning: Nov 2</div>
+        </div>
+      </div>
+
+      <div style="background: #f8d7da; padding: 12px; border-radius: 5px;">
+        <h5 style="margin: 0 0 10px 0; color: #721c24;">Monitoring Alerts</h5>
+        <div style="font-size: 11px;">
+          <div contenteditable="true">• Watch for neuropathy symptoms</div>
+          <div contenteditable="true">• Monitor CBC on Day 10</div>
+          <div contenteditable="true">• Assess for delayed nausea</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="medication-table editable-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Day</th>
+          <th>Scheduled Treatments</th>
+          <th>Status</th>
+          <th>Key Events</th>
+          <th>Provider Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background-color: #d1ecf1;">
+          <td contenteditable="true">Oct 16, 2025</td>
+          <td contenteditable="true">Day 1</td>
+          <td contenteditable="true">FOLFOX (Full protocol)</td>
+          <td contenteditable="true"><span class="status-badge status-inprogress">In Progress</span></td>
+          <td contenteditable="true">Treatment initiation, pump start</td>
+          <td contenteditable="true">Mild nausea, well controlled</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">Oct 17, 2025</td>
+          <td contenteditable="true">Day 2</td>
+          <td contenteditable="true">5-FU continuous (ongoing)</td>
+          <td contenteditable="true"><span class="status-badge status-planned">Planned</span></td>
+          <td contenteditable="true">Pump monitoring, patient check</td>
+          <td contenteditable="true">Phone follow-up scheduled</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">Oct 18, 2025</td>
+          <td contenteditable="true">Day 3</td>
+          <td contenteditable="true">Pump disconnection</td>
+          <td contenteditable="true"><span class="status-badge status-planned">Planned</span></td>
+          <td contenteditable="true">End of infusion, pump return</td>
+          <td contenteditable="true">Toxicity assessment due</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">Oct 23, 2025</td>
+          <td contenteditable="true">Day 8</td>
+          <td contenteditable="true">Labs only</td>
+          <td contenteditable="true"><span class="status-badge status-planned">Planned</span></td>
+          <td contenteditable="true">CBC, CMP monitoring</td>
+          <td contenteditable="true">Call with results</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">Nov 6, 2025</td>
+          <td contenteditable="true">Day 22 (Cycle 2)</td>
+          <td contenteditable="true">FOLFOX Cycle 2</td>
+          <td contenteditable="true"><span class="status-badge status-planned">Planned</span></td>
+          <td contenteditable="true">Pre-treatment assessment</td>
+          <td contenteditable="true">Dose review needed</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
             
             <div class="footer-buttons">
                   <div >
@@ -947,6 +990,15 @@
         </div>
         
         <script>
+             // Get the current date
+  const today = new Date();
+
+  // Format date as "Month Day, Year"
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = today.toLocaleDateString('en-US', options);
+
+  // Set the content of the span
+  document.getElementById('current-date').textContent = `${formattedDate} - Cycle 1, Day 1`;
             // Tab functionality
             function showTab(tabName) {
                 // Hide all tab contents
@@ -964,20 +1016,35 @@
                 event.target.classList.add('active');
             }
             
-            // Date navigation
-            let currentDate = new Date('2025-10-16');
-            let currentCycle = 1;
-            let currentDay = 1;
-            
-            function changeDate(direction) {
-                currentDate.setDate(currentDate.getDate() + direction);
-                currentDay += direction;
-                
-                // Update display
-                const dateDisplay = document.querySelector('.current-date');
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                dateDisplay.textContent = `${currentDate.toLocaleDateString('en-US', options)} - Cycle ${currentCycle}, Day ${currentDay}`;
-                
+// Initialize date, cycle, and day
+  let currentDate = new Date(); // today
+  let currentCycle = 1;
+  let currentDay = 1;
+
+  // Function to update display
+  function updateDisplay() {
+      const dateDisplay = document.getElementById('current-date');
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      dateDisplay.textContent = `${currentDate.toLocaleDateString('en-US', options)} - Cycle ${currentCycle}, Day ${currentDay}`;
+  }
+
+  // Function to change date
+  function changeDate(direction) {
+      currentDate.setDate(currentDate.getDate() + direction);
+      currentDay += direction;
+
+      // Optional: handle cycle increment if needed
+      // e.g., every 21 days = new cycle
+      if (currentDay > 21) {
+          currentCycle++;
+          currentDay = 1;
+      } else if (currentDay < 1) {
+          currentCycle = Math.max(1, currentCycle - 1);
+          currentDay = 21; // assuming previous cycle had 21 days
+      }
+
+      updateDisplay();
+
                 // Update medication statuses based on day
                 updateMedicationStatuses();
             }
