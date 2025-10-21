@@ -1083,7 +1083,7 @@ function openSequenceModal() {
         if(category && drug) {
             const li = document.createElement('li');
             li.className = 'list-group-item';
-            li.innerHTML = `<strong>${drug}</strong> (${category})`; // drug in bold
+            li.innerHTML = `<strong style=' color: #1976d2;'>${drug}</strong> (${category})`; // drug in bold
             categoryList.appendChild(li);
         }
     });
